@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kurapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kurapi
+  template:
+    metadata:
+      labels:
+        app: kurapi
+    spec:
+      containers:
+      - name: kurapi
+        image: kurapi:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        env:
+        - name: ASPNETCORE_URLS
+          value: "http://+:80"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kurapi-service
+spec:
+  selector:
+    app: kurapi
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP 

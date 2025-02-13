@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kurapi-config
+data:
+  appsettings.json: |
+    {
+      "CurrencySettings": {
+        "CacheKey": "CurrencyData",
+        "CacheDurationInMinutes": 30,
+        "TcmbUrl": "https://www.tcmb.gov.tr/kurlar/today.xml"
+      },
+      "Logging": {
+        "LogLevel": {
+          "Default": "Information",
+          "Microsoft.AspNetCore": "Warning"
+        }
+      },
+      "AllowedHosts": "*"
+    } 
